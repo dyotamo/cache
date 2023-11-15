@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cache
+  name: cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cache
+  template:
+    metadata:
+      labels:
+        app: cache
+    spec:
+      containers:
+        - image: dyotamo/cache:1.0.0
+          name: cache
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: "0.5"
+        - image: redis:7
+          name: redis
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "1"
